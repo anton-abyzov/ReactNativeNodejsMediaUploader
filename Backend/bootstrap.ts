@@ -6,10 +6,11 @@ import * as bodyParser from 'body-parser';
 import * as helmet from 'helmet';
 import TYPES from './constant/types';
 import TAGS from './constant/tags';
-import { HomeController } from './controller/home';
+import { MediaController } from './controller/media';
 import { MongoDBClient } from './utils/mongodb/client';
-import { UserController } from './controller/user';
-import { UserService } from './service/user';
+import { LoginController } from './controller/login';
+import Awss3Service from './services/awss3service';
+
 
 // load everything needed to the Container
 let container = new Container();
@@ -19,10 +20,11 @@ if (process.env.NODE_ENV === 'development') {
     container.applyMiddleware(logger);
 }
 
-container.bind<interfaces.Controller>(TYPE.Controller).to(HomeController).whenTargetNamed(TAGS.HomeController);
-container.bind<interfaces.Controller>(TYPE.Controller).to(UserController).whenTargetNamed(TAGS.UserController);
+container.bind<interfaces.Controller>(TYPE.Controller).to(MediaController).whenTargetNamed(TAGS.MediaController);
+container.bind<interfaces.Controller>(TYPE.Controller).to(LoginController).whenTargetNamed(TAGS.LoginController);
 container.bind<MongoDBClient>(TYPES.MongoDBClient).to(MongoDBClient);
-container.bind<UserService>(TYPES.UserService).to(UserService);
+container.bind<Awss3Service>(TYPES.Awss3Service).to(Awss3Service);
+
 
 // start the server
 let server = new InversifyExpressServer(container);

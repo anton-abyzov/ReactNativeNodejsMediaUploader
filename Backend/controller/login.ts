@@ -1,40 +1,22 @@
-import {
-  controller, httpGet, httpPost, httpPut, httpDelete
-} from 'inversify-express-utils';
-import { injectable, inject } from 'inversify';
+import { controller, httpPost } from 'inversify-express-utils';
+import { injectable } from 'inversify';
 import { Request } from 'express';
-import { Media } from '../models/media';
-
-import TYPES from '../constant/types';
 
 @injectable()
-@controller('/media')
-export class MediaController {
-
-  constructor( ) { }
-
-  @httpGet('/')
-  public getMedia(): Promise<Media[]> {
-    
-  }
-
-  @httpGet('/:id')
-  public getMediaById(request: Request): Promise<Media> {
-    
-  }
-
+@controller('/')
+export class LoginController {
   @httpPost('/')
-  public uploadMedia(request: Request): Promise<Media> {
-    
+  public login(request: Request): Promise<boolean> {
+    const body = request.body;
+    const login = body.login;
+    const pass = body.password;
+    if (login === "user" && pass === "pass") {
+      return new Promise<boolean>((resolve, reject) => {
+        resolve(true);
+      });
+    }
+    return new Promise<boolean>((resolve, reject) => {
+      resolve(false);
+    });
   }
-
-  // @httpPut('/:id')
-  // public updateMedia(request: Request): Promise<Media> {
-  //   return this.MediaService.updateMedia(request.params.id, request.body);
-  // }
-
-  // @httpDelete('/:id')
-  // public deleteMedia(request: Request): Promise<any> {
-  //   return this.MediaService.deleteMedia(request.params.id);
-  // }
 }
