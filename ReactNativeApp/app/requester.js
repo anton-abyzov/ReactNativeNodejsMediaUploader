@@ -13,10 +13,18 @@ export function postRequest(url, data) {
         formData.append(name, data[name]);
     }
 
+    console.log('formData ' + formData);
+
+    fetch('http://tut.by').then(data => console.log(data)).catch(err => console.log(err));
+
     const result = fetch(url, {
         method: 'POST',
-        body: formData
-    });
+        body: formData });
+    // }).then(data => {
+    //     console.log(data);
+    // }).catch(err => {
+    //     console.log(err)
+    // });
 
     return result;
 
