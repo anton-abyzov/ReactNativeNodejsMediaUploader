@@ -5,7 +5,7 @@ const baseURL = 'http://localhost:3000';
  * Return a promise that resolves with the response.
  */
 export function postRequest(url, data) {
-    console.log("logging data " +data);
+    console.log("logging data " + data);
     console.log("logging url " + url);
     var formData = new FormData();
 
@@ -19,7 +19,8 @@ export function postRequest(url, data) {
 
     const result = fetch(url, {
         method: 'POST',
-        body: formData });
+        body: formData
+    });
     // }).then(data => {
     //     console.log(data);
     // }).catch(err => {
@@ -27,6 +28,42 @@ export function postRequest(url, data) {
     // });
 
     return result;
+
+
+
+
+
+
+
+    var photo = {
+        uri: url,
+        type: 'image/jpeg',
+        name: 'test.jpg',
+    };
+
+    var form = new FormData();
+    form.append("ProfilePicture", photo);
+
+    fetch(
+        'http://localhost:3000/media',
+        {
+            body: form,
+            method: "PUT",
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer ' + user.token
+            }
+        }
+    ).then((response) => response.json())
+        .catch((error) => {
+            alert("ERROR " + error)
+        })
+        .then((responseData) => {
+            alert("Succes " + responseData)
+        }).done();
+
+
+
 
     //   return new Promise((resolve, reject) => {
     //     request.get(baseURL + '/')
