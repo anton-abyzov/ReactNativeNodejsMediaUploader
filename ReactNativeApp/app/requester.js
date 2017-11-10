@@ -32,7 +32,7 @@ function getCategoryList(callback) {
       }
     };
     console.log('Before open');
-    xhr.open('GET', 'http://tut.by');
+    xhr.open('GET', 'http://localhost:3000/media');
     xhr.send();
   }
 
@@ -47,9 +47,14 @@ export function postRequest(url, data) {
 
     console.log('formData ' + formData);
 
-    getCategoryList(data => {
-        console.log("The data is:", data)
-    });
+    // getCategoryList(data => {
+    //     console.log("The data is:", data)
+    // });
+
+    fetch('http://localhost:3000/media').then(function(response) {
+        console.log(response);
+        return response.json();
+      })
 
 
     //http.get()
@@ -71,13 +76,32 @@ export function postRequest(url, data) {
 
     // const result = fetch(url, {
     //     method: 'POST',
-    //     body: formData
-    // });
+    //     body: JSON.stringify({data: formData}),
+    //     headers:{            
+    //         'Content-Type':'application/json'
+    //        },
+    //     //body: formData
     // }).then(data => {
     //     console.log(data);
     // }).catch(err => {
     //     console.log(err)
     // });
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url)
+    xhr.onreadystatechange = () => {
+      if(xhr.readyState === 4){
+        if(xhr.status === 200){
+          console.log('done');
+        }
+        else{
+          alert('Could not upload file.');
+        }
+      }
+    };
+    xhr.send(data);
+
 
     //return result;
 
@@ -87,31 +111,31 @@ export function postRequest(url, data) {
 
 
 
-    var photo = {
-        uri: url,
-        type: 'image/jpeg',
-        name: 'test.jpg',
-    };
+    // var photo = {
+    //     uri: url,
+    //     type: 'image/jpeg',
+    //     name: 'test.jpg',
+    // };
 
-    var form = new FormData();
-    form.append("ProfilePicture", photo);
+    // var form = new FormData();
+    // form.append("ProfilePicture", photo);
 
-    fetch(
-        'http://localhost:3000/media',
-        {
-            body: form,
-            method: "PUT",
-            headers: {
-                'Content-Type': 'multipart/form-data'                
-            }
-        }
-    ).then((response) => response.json())
-        .catch((error) => {
-            alert("ERROR " + error)
-        })
-        .then((responseData) => {
-            alert("Succes " + responseData)
-        }).done();
+    // fetch(
+    //     'http://localhost:3000/media',
+    //     {
+    //         body: form,
+    //         method: "PUT",
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'                
+    //         }
+    //     }
+    // ).then((response) => response.json())
+    //     .catch((error) => {
+    //         alert("ERROR " + error)
+    //     })
+    //     .then((responseData) => {
+    //         alert("Succes " + responseData)
+    //     }).done();
 
 
 

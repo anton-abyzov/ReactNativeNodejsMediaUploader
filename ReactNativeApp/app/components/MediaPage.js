@@ -19,19 +19,7 @@ class MediaPage extends React.Component {
   render() {
     return (
       <View>
-        <Text> Hello</Text>
-        <Image
-          style={{
-            paddingVertical: 30,
-            width: 150,
-            height: 150,
-            borderRadius: 75
-          }}
-          resizeMode='cover'
-          source={{
-            uri: 'http://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
-          }}
-        />
+        <Text>Upload your image</Text>
         <PhotoUpload
           onPhotoSelect={avatar => {
             console.log('ERror');

@@ -13,10 +13,11 @@ import Awss3Service from '../services/awss3service';
 export class MediaController {
   @inject(TYPES.MongoDBClient) mongoClient: MongoDBClient;
   @inject(TYPES.Awss3Service) awss3Service: Awss3Service
-  constructor( ) { }
+  constructor() { }
 
   @httpGet('/')
   public getMedia(): Promise<Media[]> {
+    console.log('getting media');
     return new Promise<Media[]>((resolve, reject) => {
       this.mongoClient.find('Media', {}, (error, data: Media[]) => {
         resolve(data);
@@ -36,16 +37,24 @@ export class MediaController {
 
   @httpPost('/')
   public uploadMedia(request: Request): Promise<Media> {
-
-    const media = request.body;
-    console.log(JSON.stringify(request));
+    console.log('posting media');
+    console.log(request.body);
+    
+    const binaryFileData = request.body;
+    
+    //console.log(JSON.stringify(request));
     const uuidv1 = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/:/g, '');
-    console.log("media " +media);
-    console.log("uuidv1 " +uuidv1);
+    
+    console.log("uuidv1 " + uuidv1);
     console.log('aws ' + this.awss3Service);
-    this.awss3Service.uploadMedia(uuidv1, media);
-    return new Promise<Media>((resolve, reject) => {
+    this.awss3Service.uploadMedia(uuidv1, binaryFileData);
+    const media = new Media('sldkfjskdf', 'jpeg',uuidv1);
+    return new Promise<Media>((resolve, reject) => {            
       this.mongoClient.insert('Media', media, (error, data: Media) => {
+        console.log('mongo data ' + data);
+        if (error) {
+          console.log(error);
+        }
         resolve(data);
       });
     });
