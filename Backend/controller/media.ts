@@ -37,6 +37,7 @@ export class MediaController {
 
   @httpPost('/')
   public uploadMedia(request: Request): Promise<Media> {
+    
     const media = request.body;
     const uuidv1 = UUidv1;
     this.awss3Service.uploadMedia(uuidv1, media);

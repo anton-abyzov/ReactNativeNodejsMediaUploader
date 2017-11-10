@@ -7,7 +7,7 @@
   "scripts": {
     "test": "nyc --clean --all --require ts-node/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "npm test **/*.spec.ts",
-    "start": "ts-node .\\bootstrap.ts"
+    "start": "ts-node bootstrap.ts"
   },
   "dependencies": {
     "body-parser": "1.18.2",

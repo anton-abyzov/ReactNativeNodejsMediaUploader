@@ -1,4 +1,3 @@
-import request from 'superagent';
 const baseURL = 'http://localhost:3000';
 
 /**
@@ -6,7 +5,8 @@ const baseURL = 'http://localhost:3000';
  * Return a promise that resolves with the response.
  */
 export function postRequest(url, data) {
-
+    console.log("logging data " +data);
+    console.log("logging url " + url);
     var formData = new FormData();
 
     for (var name in data) {
