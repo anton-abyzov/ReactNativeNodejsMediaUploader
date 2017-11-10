@@ -1,11 +1,22 @@
 const baseURL = 'http://localhost:3000';
+//import http from 'http';
+
 
 /**
  * Hit the companylookup endpoint with the proper query.
  * Return a promise that resolves with the response.
  */
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
 export function postRequest(url, data) {
-    console.log("logging data " +data);
+    console.log("logging data " + data);
     console.log("logging url " + url);
     var formData = new FormData();
 
@@ -15,11 +26,24 @@ export function postRequest(url, data) {
 
     console.log('formData ' + formData);
 
-    fetch('http://tut.by').then(data => console.log(data)).catch(err => console.log(err));
+    //http.get()
+    const res = httpGet('http://tut.by');
+    console.log(res);
 
-    const result = fetch(url, {
-        method: 'POST',
-        body: formData });
+    // fetch('http://tut.by').then(
+    //     data => {
+    //         console.log('hi');
+    //         console.log(data);
+    //     })
+    //     .catch(err => console.log(err));
+
+    // const result = fetch(url, {
+    //     method: 'POST',
+    //     body: formData
+    // });
+
+
+    
     // }).then(data => {
     //     console.log(data);
     // }).catch(err => {
