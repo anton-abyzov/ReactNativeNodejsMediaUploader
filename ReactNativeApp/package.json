@@ -5,11 +5,13 @@
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest",
-		"android": "react-native run-android"
+		"android": "react-native run-android",
+		"ios": "react-native run-ios"
 	},
 	"dependencies": {
 		"react": "16.0.0",
-		"react-native": "0.50.3"
+		"react-native": "^0.50.3",
+		"react-native-photo-upload": "^1.1.1"
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",
