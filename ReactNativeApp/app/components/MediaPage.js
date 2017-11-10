@@ -22,9 +22,8 @@ class MediaPage extends React.Component {
 
   render() {
     return (
-      <PhotoUpload
-        onPhotoSelect={this.onPhotoSelect.bind(this)}
-      >
+      <View>
+        <Text> Hello</Text>
         <Image
           style={{
             paddingVertical: 30,
@@ -34,10 +33,33 @@ class MediaPage extends React.Component {
           }}
           resizeMode='cover'
           source={{
-            uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
+            uri: 'http://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
           }}
         />
-      </PhotoUpload>
+        <PhotoUpload
+          onPhotoSelect={avatar => {
+            console.log('ERror');
+            console.log("avatar is " + avatar);
+            postRequest('http://localhost:3000/media', avatar).then(data => {
+              console.log(data);
+            }).catch(err => {
+              console.log(err)
+            });
+          }}>
+          <Image
+            style={{
+              paddingVertical: 30,
+              width: 150,
+              height: 150,
+              borderRadius: 75
+            }}
+            resizeMode='cover'
+            source={{
+              uri: 'http://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
+            }}
+          />
+        </PhotoUpload>
+      </View>
     )
   }
 }
