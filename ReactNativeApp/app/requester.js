@@ -15,6 +15,27 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
+function getCategoryList(callback) {
+    var xhr = new XMLHttpRequest();
+    console.log('Before xmlhttpRequest');
+    xhr.onreadystatechange = (e) => {
+        console.log('on ready state');
+      if (xhr.readyState !== 4) {
+        return;
+      }
+  
+      if (xhr.status === 200) {
+        console.log('SUCCESS', xhr.responseText);
+        callback(JSON.parse(xhr.responseText));
+      } else {
+        console.warn('request_error');
+      }
+    };
+    console.log('Before open');
+    xhr.open('GET', 'http://tut.by');
+    xhr.send();
+  }
+
 export function postRequest(url, data) {
     console.log("logging data " + data);
     console.log("logging url " + url);
@@ -26,9 +47,14 @@ export function postRequest(url, data) {
 
     console.log('formData ' + formData);
 
+    getCategoryList(data => {
+        console.log("The data is:", data)
+    });
+
+
     //http.get()
-    const res = httpGet('http://tut.by');
-    console.log(res);
+    // const res = httpGet('http://tut.by');
+    // console.log(res);
 
     // fetch('http://tut.by').then(
     //     data => {
@@ -43,17 +69,17 @@ export function postRequest(url, data) {
     // });
 
 
-    const result = fetch(url, {
-        method: 'POST',
-        body: formData
-    });
+    // const result = fetch(url, {
+    //     method: 'POST',
+    //     body: formData
+    // });
     // }).then(data => {
     //     console.log(data);
     // }).catch(err => {
     //     console.log(err)
     // });
 
-    return result;
+    //return result;
 
 
 
@@ -76,8 +102,7 @@ export function postRequest(url, data) {
             body: form,
             method: "PUT",
             headers: {
-                'Content-Type': 'multipart/form-data',
-                'Authorization': 'Bearer ' + user.token
+                'Content-Type': 'multipart/form-data'                
             }
         }
     ).then((response) => response.json())

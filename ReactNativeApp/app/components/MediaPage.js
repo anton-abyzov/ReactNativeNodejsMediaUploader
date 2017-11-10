@@ -13,11 +13,7 @@ class MediaPage extends React.Component {
   onPhotoSelect(avatar) {
     console.log('ERror');
     console.log("avatar is " + avatar);
-    postRequest('http://localhost:3000/media', avatar).then(data => {
-      console.log(data);
-    }).catch(err => {
-      console.log(err)
-    });
+    postRequest('http://localhost:3000/media', avatar);
   }
 
   render() {
@@ -40,11 +36,7 @@ class MediaPage extends React.Component {
           onPhotoSelect={avatar => {
             console.log('ERror');
             console.log("avatar is " + avatar);
-            postRequest('http://localhost:3000/media', avatar).then(data => {
-              console.log(data);
-            }).catch(err => {
-              console.log(err)
-            });
+            postRequest('http://localhost:3000/media', avatar);
           }}>
           <Image
             style={{
