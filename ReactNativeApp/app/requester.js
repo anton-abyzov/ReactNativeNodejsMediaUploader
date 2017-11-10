@@ -7,54 +7,34 @@ const baseURL = 'http://localhost:3000';
  * Return a promise that resolves with the response.
  */
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
+// function httpGet(theUrl)
+// {
+//     var xmlHttp = new XMLHttpRequest();
+//     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+//     xmlHttp.send( null );
+//     return xmlHttp.responseText;
+// }
 
-function getCategoryList(callback) {
-    var xhr = new XMLHttpRequest();
-    console.log('Before xmlhttpRequest');
-    xhr.onreadystatechange = (e) => {
-        console.log('on ready state');
-      if (xhr.readyState !== 4) {
-        return;
-      }
-  
-      if (xhr.status === 200) {
-        console.log('SUCCESS', xhr.responseText);
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.warn('request_error');
-      }
-    };
-    console.log('Before open');
-    xhr.open('GET', 'http://localhost:3000/media');
-    xhr.send();
-  }
 
-export function postRequest(url, data) {
-    console.log("logging data " + data);
+
+export function postRequest(url, data) {    
     console.log("logging url " + url);
-    var formData = new FormData();
+    // var formData = new FormData();
 
-    for (var name in data) {
-        formData.append(name, data[name]);
-    }
+    // for (var name in data) {
+    //     formData.append(name, data[name]);
+    // }
 
-    console.log('formData ' + formData);
+    // console.log('formData ' + formData);
 
     // getCategoryList(data => {
     //     console.log("The data is:", data)
     // });
 
-    fetch('http://localhost:3000/media').then(function(response) {
-        console.log(response);
-        return response.json();
-      })
+    // fetch('http://localhost:3000/media').then(function(response) {
+    //     console.log(response);
+    //     return response.json();
+    //   })
 
 
     //http.get()
@@ -87,7 +67,7 @@ export function postRequest(url, data) {
     //     console.log(err)
     // });
 
-
+    const escapedData = encodeURIComponent(data);
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url)
     xhr.onreadystatechange = () => {
@@ -100,7 +80,7 @@ export function postRequest(url, data) {
         }
       }
     };
-    xhr.send(data);
+    xhr.send(escapedData);
 
 
     //return result;

@@ -10,9 +10,8 @@ import { postRequest } from '../requester';
 
 class MediaPage extends React.Component {
 
-  onPhotoSelect(avatar) {
-    console.log('ERror');
-    console.log("avatar is " + avatar);
+  onPhotoSelect(avatar) { 
+    console.log(avatar);
     postRequest('http://localhost:3000/media', avatar);
   }
 
@@ -21,11 +20,7 @@ class MediaPage extends React.Component {
       <View>
         <Text>Upload your image</Text>
         <PhotoUpload
-          onPhotoSelect={avatar => {
-            console.log('ERror');
-            console.log("avatar is " + avatar);
-            postRequest('http://localhost:3000/media', avatar);
-          }}>
+          onPhotoSelect={this.onPhotoSelect.bind(this)}>
           <Image
             style={{
               paddingVertical: 30,

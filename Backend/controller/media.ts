@@ -36,28 +36,31 @@ export class MediaController {
   }
 
   @httpPost('/')
-  public uploadMedia(request: Request): Promise<Media> {
+  public uploadMedia(request: Request): Promise<string> {
     console.log('posting media');
-    console.log(request.body);
     
-    const binaryFileData = request.body;
-    
-    //console.log(JSON.stringify(request));
-    const uuidv1 = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/:/g, '');
-    
-    console.log("uuidv1 " + uuidv1);
+    const binaryFileData = request.body;    
+    const uid = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/:/g, '');
+
+    console.log("uuidv1 " + uid);
     console.log('aws ' + this.awss3Service);
-    this.awss3Service.uploadMedia(uuidv1, binaryFileData);
-    const media = new Media('sldkfjskdf', 'jpeg',uuidv1);
-    return new Promise<Media>((resolve, reject) => {            
-      this.mongoClient.insert('Media', media, (error, data: Media) => {
-        console.log('mongo data ' + data);
-        if (error) {
-          console.log(error);
-        }
-        resolve(data);
+    const awsPromise = this.awss3Service.uploadMedia(uid, binaryFileData)
+    awsPromise.then(data => {
+      console.log('aws s3 returned data '+ JSON.stringify(data));
+      const media = new Media(uid, 'jpeg', uid);
+      new Promise<Media>((resolve, reject) => {
+        this.mongoClient.insert('Media', media, (error, data: Media) => {
+          console.log('mongo data ' + data);
+          if (error) {
+            console.log(error);
+          }
+          resolve(data);
+        });
       });
-    });
+
+    }).catch(err => console.log(err));
+    return awsPromise;
+    
   }
 
   // @httpPut('/:id')
