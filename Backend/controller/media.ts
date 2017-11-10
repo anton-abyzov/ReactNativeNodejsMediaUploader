@@ -7,7 +7,6 @@ import { Media } from '../models/media';
 import { MongoDBClient } from '../utils/mongodb/client';
 import TYPES from '../constant/types';
 import Awss3Service from '../services/awss3service';
-import UUidv1 from 'uuid/v1';
 
 @injectable()
 @controller('/media')
@@ -37,9 +36,13 @@ export class MediaController {
 
   @httpPost('/')
   public uploadMedia(request: Request): Promise<Media> {
-    
+
     const media = request.body;
-    const uuidv1 = UUidv1;
+    console.log(JSON.stringify(request));
+    const uuidv1 = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '').replace(/:/g, '');
+    console.log("media " +media);
+    console.log("uuidv1 " +uuidv1);
+    console.log('aws ' + this.awss3Service);
     this.awss3Service.uploadMedia(uuidv1, media);
     return new Promise<Media>((resolve, reject) => {
       this.mongoClient.insert('Media', media, (error, data: Media) => {
