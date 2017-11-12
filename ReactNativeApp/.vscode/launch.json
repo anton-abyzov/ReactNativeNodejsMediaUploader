@@ -5,11 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug iOS",
+            "name": "Attach to packager",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
             "type": "reactnative",
-            "request": "launch",
-            "platform": "ios",
+            "request": "attach",
             "sourceMaps": true,
             "outDir": "${workspaceRoot}/.vscode/.react"
         },
@@ -20,16 +19,19 @@
         "request": "launch",
         "platform": "ios",
         "sourceMaps": true,
+        //"target": "device",
+        "trace": "verbose",        
         "outDir": "${workspaceRoot}/.vscode/.react"
     },
         {
-            "type": "node",
+            "name": "Debug Android",
+            "program": "${workspaceRoot}/.vscode/launchReactNative.js",
+            "type": "reactnative",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/Backend/controller/media.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ]
+            "platform": "android",
+            "sourceMaps": true,
+            "outDir": "${workspaceRoot}/.vscode/.react"
         }
+       
     ]
 }
