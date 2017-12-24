@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 var AWS = require('aws-sdk')    ;
 
-// For dev purposes only
-AWS.config.update({ accessKeyId: 'AKIAI5MG45RLFOB2NHUA', secretAccessKey: "your secret", "region": "us-west-1" });
+// For dev purposes only, find secret key at your https://docs.google.com/document/d/1jbsyeiIyhp9nbMPgxQxUwIMNKfmlTjIfLhAjs6Lewk4/edit
+AWS.config.update({ accessKeyId: 'AKIAI5MG45RLFOB2NHUA', secretAccessKey: "<insert your secret key>", "region": "us-west-1" });
 
 @injectable()
 export default class Awss3Service {
